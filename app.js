@@ -1,20 +1,35 @@
 
-
 const express = require("express");
 const bodyParser = require("body-parser");
 
 const app = express();
 
+app.set('view engine', 'ejs');
+
 
 app.get("/", function(req, res){
   const d = new Date();
-  const day = d.getDay();
-  if (day === 6 || day === 0){
-    res.write("Yay! Its weekend and i dont have to work");
+  const days = d.getDay();
+  var day = "";
+
+  if (days === 0){
+    day = "Sunday";
+  } else if (days === 1){
+    day = "Monday";
+  } else if (days === 2){
+    day = "Tuesday";
+  } else if (days === 3){
+    day = "Wednesday";
+  } else if (days === 4){
+    day = "Thursday";
+  } else if (days === 5){
+    day = "Friday";
   } else {
-    res.write("Opps! its a working day");
-  }
-  res.send();
+    day = "Saturday";
+  };
+
+  res.render("list", {kingOfDay: day});
+
 });
 
 
